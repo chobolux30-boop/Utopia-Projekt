@@ -22,17 +22,17 @@
         }
 
         /* Der Haupt-Container (Die Spenden-Karte) */
-       .card {
-    background: rgba(234, 186, 161, 0.88); /* Heller Mars-Himmel-Ton */
-    backdrop-filter: blur(6px);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(80, 35, 20, 0.2); 
-    max-width: 450px;
-    width: 100%;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
+        .card {
+            background: rgba(234, 186, 161, 0.88); /* Heller Mars-Himmel-Ton */
+            backdrop-filter: blur(6px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(80, 35, 20, 0.2); 
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
 
         /* Hauptüberschrift (H1) */
         h1 {
@@ -43,7 +43,7 @@
         }
 
         /* Beschreibungstext (P) */
-        p {
+        .card p {
             font-size: 16px;
             color: #5c4a43; /* Angenehmes, dunkles Staub-Braun */
             margin-bottom: 30px;
@@ -101,35 +101,82 @@
             color: #8c766f; /* Unauffälliges Hellbraun */
         }
     </style>
+
+    <!-- Die Logik (JavaScript) -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const banner = document.getElementById("cookie-banner");
+        const acceptBtn = document.getElementById("cookie-accept");
+        const rejectBtn = document.getElementById("cookie-reject");
+
+        // Prüfen, ob der Nutzer bereits eine Auswahl getroffen hat
+        const cookieConsent = localStorage.getItem("cookie_consent");
+
+        if (!cookieConsent) {
+            banner.style.display = "block"; // Banner anzeigen, wenn keine Auswahl existiert
+        } else if (cookieConsent === "accepted") {
+            loadAdSense(); // Werbe-Script laden, wenn bereits akzeptiert wurde
+        }
+
+        // Klick auf Akzeptieren
+        acceptBtn.addEventListener("click", function () {
+            localStorage.setItem("cookie_consent", "accepted");
+            banner.style.display = "none";
+            loadAdSense();
+        });
+
+        // Klick auf Ablehnen
+        rejectBtn.addEventListener("click", function () {
+            localStorage.setItem("cookie_consent", "rejected");
+            banner.style.display = "none";
+        });
+
+        // Funktion, die den Werbebanner-Code dynamisch nachlädt
+        function loadAdSense() {
+            console.log("Werbe-Scripts werden geladen...");
+            
+            let script = document.createElement("script");
+            script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9256534280045510";
+            script.async = true;
+            script.crossOrigin = "anonymous";
+            document.head.appendChild(script);
+        }
+    });
+    </script>
 </head>
 <body>
 
+    <!-- Der Cookie-Banner (HTML) -->
+    <div id="cookie-banner" style="display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; background: #222; color: #fff; padding: 20px; z-index: 99999; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-family: sans-serif; max-width: 500px;">
+        <p style="margin: 0 0 15px 0; font-size: 14px; line-height: 1.5; color: #fff;">
+            Wir nutzen Cookies für personalisierte Werbung (z.B. Google AdSense). Mit dem Klick auf "Akzeptieren" stimmen Sie dem zu. Details finden Sie in der Datenschutzerklärung.
+        </p>
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+            <button id="cookie-reject" style="background: transparent; border: 1px solid #aaa; color: #aaa; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Ablehnen</button>
+            <button id="cookie-accept" style="background: #007bff; border: none; color: white; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">Akzeptieren</button>
+        </div>
+    </div>
+
+    <!-- Die Hauptkarte -->
     <div class="card">
-        <!-- Hier kannst du den Titel anpassen -->
-        <h1>Unterstütze die entstehung des Utopia-Projekts</h1>
+        <h1>Unterstütze die Entstehung des Utopia-Projekts</h1>
         
-        <!-- Hier kommt deine Beschreibung hin -->
         <p>
-            Mit einer spende unterstützt du das Utopia Projekt das  Game  das denn Mars grün und bewohnbar macht!
+            Mit einer Spende unterstützt du das Utopia-Projekt – das Game, das den Mars grün und bewohnbar macht!
         </p>
 
-        <!-- ACHTUNG: Ersetze den Link unten mit deinem PayPal.Me-Link! -->
+        <!-- PayPal-Link -->
         <a href="https://paypal.me/gizmo6981744" target="_blank" class="donate-btn">
             Jetzt via PayPal spenden
         </a>
         
-
-        <!-- HIER IST DEIN NEUER INFO-LINK -->
         <br>
         <a href="info.html" class="info-link">
             Mehr über das Projekt erfahren →
         </a>
 
-        
-    
-
         <div class="footer">
-            <p>Privatgeschenk/Schenkung. Keine Spendenbescheinigung möglich.</p>
+            <p style="margin:0;">Privatgeschenk/Schenkung. Keine Spendenbescheinigung möglich.</p>
         </div>
     </div>
 
