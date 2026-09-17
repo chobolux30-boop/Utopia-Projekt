@@ -1,124 +1,762 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Low Budget Entertainment & Lifestyle</title>
+    <title>Utopia-Projekt.de | Gemeinsam die Welt gestalten</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            900: '#064e3b',
+                        },
+                        dark: {
+                            bg: '#0a0f0d',
+                            card: 'rgba(18, 28, 23, 0.65)',
+                            border: 'rgba(52, 211, 153, 0.15)',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --accent-color: #38bdf8;
-            --accent-hover: #0284c7;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
+            background-color: #070a09;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Glassmorphism utility */
+        .glass-card {
+            background: rgba(15, 23, 20, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(52, 211, 153, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        header {
-            width: 100%;
-            max-width: 1000px;
-            padding: 20px 0;
-            text-align: center;
+        .glass-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent-color);
-            letter-spacing: 1px;
-            text-transform: uppercase;
+        .glass-card-hover:hover {
+            border-color: rgba(52, 211, 153, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px 0 rgba(16, 185, 129, 0.15);
         }
 
-        main {
-            max-width: 800px;
-            width: 100%;
-            background-color: var(--card-bg);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            margin: 40px 0;
+        .gradient-text {
+            background: linear-gradient(135deg, #a7f3d0 0%, #34d399 50%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--text-main);
-            line-height: 1.2;
+        .gradient-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        h1 span {
-            color: var(--accent-color);
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-
-        p.intro-text {
-            font-size: 1.2rem;
-            line-height: 1.7;
-            color: var(--text-muted);
-            margin-bottom: 30px;
+        ::-webkit-scrollbar-track {
+            background: #070a09;
         }
-
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: #0f172a;
-            font-weight: bold;
-            font-size: 1rem;
-            padding: 14px 32px;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s ease;
+        ::-webkit-scrollbar-thumb {
+            background: #134e3a;
+            border-radius: 4px;
         }
-
-        .cta-button:hover {
-            background-color: var(--accent-hover);
-            color: #ffffff;
-            transform: translateY(-2px);
-        }
-
-        footer {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            padding: 20px 0;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10b981;
         }
     </style>
 </head>
-<body>
+<body class="relative min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-black">
 
-    <header>
-        <div class="logo">Low Budget Entertainment</div>
+    <!-- Background Glow Elements -->
+    <div class="gradient-glow w-96 h-96 bg-emerald-600/20 top-0 left-1/4 animate-pulse-slow"></div>
+    <div class="gradient-glow w-[30rem] h-[30rem] bg-teal-600/10 top-[40%] right-10"></div>
+    <div class="gradient-glow w-80 h-80 bg-emerald-500/15 bottom-20 left-10"></div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 glass-card border-b border-emerald-900/30 px-4 lg:px-8 py-3 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-700 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-emerald-900/40 group-hover:scale-105 transition-transform">
+                    <i data-lucide="globe" class="w-6 h-6 text-slate-950"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-lg tracking-wider text-white">UTOPIA<span class="text-emerald-400">.PROJEKT</span></span>
+                    <span class="text-[10px] text-emerald-400/80 tracking-widest uppercase font-semibold">Erde 2.0 Initiative</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+                <a href="#vision" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="eye" class="w-4 h-4"></i> Vision</a>
+                <a href="#saeulen" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="columns" class="w-4 h-4"></i> Säulen</a>
+                <a href="#impact" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="activity" class="w-4 h-4"></i> Impact</a>
+                <a href="#projekte" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="rocket" class="w-4 h-4"></i> Roadmap</a>
+                <a href="#mitmachen" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="users" class="w-4 h-4"></i> Mitwirken</a>
+            </nav>
+
+            <!-- Status Badge & CTA -->
+            <div class="hidden sm:flex items-center gap-4">
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span>Status: Phase 1 Aktiv</span>
+                </div>
+                <a href="#mitmachen" class="px-4 py-2 text-sm font-semibold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg shadow-md shadow-emerald-500/20 transition-all hover:scale-105">
+                    Mitgestalten
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2" aria-label="Menü öffnen">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden pt-4 pb-2 px-2 flex-col gap-3 border-t border-emerald-900/40 mt-3">
+            <a href="#vision" class="mobile-nav-link block px-3 py-2 rounded-md hover:bg-emerald-950/50 text-gray-300 hover:text-emerald-400">Vision</a>
+            <a href="#saeulen" class="mobile-nav-link block px-3 py-2 rounded-md hover:bg-emerald-950/50 text-gray-300 hover:text-emerald-400">Säulen</a>
+            <a href="#impact" class="mobile-nav-link block px-3 py-2 rounded-md hover:bg-emerald-950/50 text-gray-300 hover:text-emerald-400">Impact Tracker</a>
+            <a href="#projekte" class="mobile-nav-link block px-3 py-2 rounded-md hover:bg-emerald-950/50 text-gray-300 hover:text-emerald-400">Roadmap & Ideen</a>
+            <a href="#mitmachen" class="mobile-nav-link block px-3 py-2 rounded-md hover:bg-emerald-950/50 text-gray-300 hover:text-emerald-400">Jetzt Mitmachen</a>
+        </div>
     </header>
 
-    <main>
-        <h1>Willkommen bei <span>Low Budget Entertainment & Lifestyle</span></h1>
-        <p class="intro-text">
-            Herzlich willkommen auf meiner Seite! Ich biete dir erstklassige Unterhaltung und frischen Lifestyle zu echten Low-Budget-Preisen. Erlebe spannenden Content, tolle Projektideen und viel Inspiration.
-        </p>
-        <a href="info.html" class="cta-button">Jetzt entdecken</a>
+    <main class="flex-grow z-10 relative">
+
+        <!-- Hero Section -->
+        <section id="vision" class="relative pt-20 pb-24 lg:pt-32 lg:pb-36 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-4xl mx-auto space-y-8">
+                
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border-emerald-500/30 text-emerald-300 text-sm font-medium animate-float">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Eine Bewegung für das Anthropozän 2.0</span>
+                </div>
+
+                <!-- Main Headline -->
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight">
+                    Eine bessere Welt ist keine Fantasie. <br class="hidden sm:block" />
+                    <span class="gradient-text">Sie ist ein Bauplan.</span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light">
+                    Willkommen beim <strong class="text-white font-semibold">Utopia-Projekt</strong> – der kollaborativen Initiative für nachhaltige Innovation, globale Gerechtigkeit und ökologische Regeneration.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                    <a href="#projekte" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-bold text-base shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                        <i data-lucide="compass" class="w-5 h-5"></i> Projekt entdecken
+                    </a>
+                    <a href="#mitmachen" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-card hover:bg-emerald-950/40 text-white font-semibold text-base border border-emerald-500/30 hover:border-emerald-400 transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                        <i data-lucide="user-plus" class="w-5 h-5 text-emerald-400"></i> Jetzt mitgestalten
+                    </a>
+                </div>
+
+                <!-- Subtle Feature Indicators -->
+                <div class="pt-12 grid grid-cols-2 md:grid-cols-4 gap-4 text-left border-t border-emerald-900/30">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 flex-shrink-0"></i>
+                        <span class="text-xs text-gray-400">100% Dezentral & Transparent</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 flex-shrink-0"></i>
+                        <span class="text-xs text-gray-400">Open-Source Methodik</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 flex-shrink-0"></i>
+                        <span class="text-xs text-gray-400">Wissenschaftlich Fundiert</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 flex-shrink-0"></i>
+                        <span class="text-xs text-gray-400">Global & Lokal Vernetzt</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4 Säulen von Utopia -->
+        <section id="saeulen" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-emerald-400 tracking-widest uppercase mb-2">Fundament des Wandels</h2>
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Die 4 Säulen von Utopia</h3>
+                <p class="text-gray-400 mt-4 text-sm sm:text-base">Ganzheitlicher Fortschritt erfordert Transformation an allen Fronten unserer Gesellschaft.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Säule 1 -->
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-950/80 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-6">
+                            <i data-lucide="sprout" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-3">Ökologische Regeneration</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Aktivierung von Re-Wilding-Initiativen, Umstieg auf 100% erneuerbare Energien & konsequente zirkuläre Kreislaufwirtschaft.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-900/30 flex items-center justify-between text-xs text-emerald-400 font-medium">
+                        <span>Initiativen: 14</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Säule 2 -->
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-950/80 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-6">
+                            <i data-lucide="cpu" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-3">Technologie für Menschen</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Gemeinwohl-orientierte Open-Source KI, ethische Automatisierung und Schutz digitaler Daten-Souveränität aller Bürger.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-900/30 flex items-center justify-between text-xs text-emerald-400 font-medium">
+                        <span>Initiativen: 9</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Säule 3 -->
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-950/80 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-6">
+                            <i data-lucide="scale" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-3">Soziale Gerechtigkeit</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Gerechte globale Ressourcenverteilung, barrierefreie universelle Bildung und Modelle bedingungloser Teilhabe.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-900/30 flex items-center justify-between text-xs text-emerald-400 font-medium">
+                        <span>Initiativen: 12</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Säule 4 -->
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-950/80 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-6">
+                            <i data-lucide="network" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-3">Lokale & Globale Community</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Stärkung dezentraler Nachbarschaftsprojekte, solidarischer Kiez-Hubs und weltweite synchrone Vernetzung.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-900/30 flex items-center justify-between text-xs text-emerald-400 font-medium">
+                        <span>Initiativen: 21</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Global Impact Tracker (Dashboard Widget) -->
+        <section id="impact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border-emerald-500/20 relative overflow-hidden">
+                <!-- Background ambient glow for widget -->
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-12">
+                    <div>
+                        <div class="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2">
+                            <i data-lucide="activity" class="w-4 h-4"></i> Live Metrics Dashboard
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Globaler Fortschritts-Tracker</h3>
+                        <p class="text-gray-400 text-sm mt-1">Echtzeit-Messung unseres kumulierten Beitrags zur Regeneration.</p>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs text-gray-400">Zuletzt aktualisiert: <span class="text-emerald-400">Gerade eben</span></span>
+                        <button id="refresh-metrics-btn" class="p-2 rounded-lg bg-emerald-950 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-900 transition-colors" title="Daten aktualisieren">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Numbers Grid -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    <div class="bg-black/30 rounded-2xl p-5 border border-emerald-900/30">
+                        <div class="text-gray-400 text-xs font-medium mb-1">Gepflanzte Bäume</div>
+                        <div class="text-2xl sm:text-4xl font-black text-white flex items-baseline gap-1">
+                            <span class="counter" data-target="142850">0</span>
+                        </div>
+                        <div class="text-emerald-400 text-xs font-semibold mt-2 flex items-center gap-1">
+                            <i data-lucide="trending-up" class="w-3 h-3"></i> +12% diesen Monat
+                        </div>
+                    </div>
+
+                    <div class="bg-black/30 rounded-2xl p-5 border border-emerald-900/30">
+                        <div class="text-gray-400 text-xs font-medium mb-1">Open-Source Konzepte</div>
+                        <div class="text-2xl sm:text-4xl font-black text-white flex items-baseline gap-1">
+                            <span class="counter" data-target="1240">0</span>
+                        </div>
+                        <div class="text-emerald-400 text-xs font-semibold mt-2 flex items-center gap-1">
+                            <i data-lucide="trending-up" class="w-3 h-3"></i> +34 neue diese Woche
+                        </div>
+                    </div>
+
+                    <div class="bg-black/30 rounded-2xl p-5 border border-emerald-900/30">
+                        <div class="text-gray-400 text-xs font-medium mb-1">Aktive Mitgestalter</div>
+                        <div class="text-2xl sm:text-4xl font-black text-white flex items-baseline gap-1">
+                            <span class="counter" data-target="28910">0</span>
+                        </div>
+                        <div class="text-emerald-400 text-xs font-semibold mt-2 flex items-center gap-1">
+                            <i data-lucide="users" class="w-3 h-3"></i> In 48 Ländern
+                        </div>
+                    </div>
+
+                    <div class="bg-black/30 rounded-2xl p-5 border border-emerald-900/30">
+                        <div class="text-gray-400 text-xs font-medium mb-1">CO₂-Einsparung (Tonnen)</div>
+                        <div class="text-2xl sm:text-4xl font-black text-white flex items-baseline gap-1">
+                            <span class="counter" data-target="89400">0</span>
+                        </div>
+                        <div class="text-emerald-400 text-xs font-semibold mt-2 flex items-center gap-1">
+                            <i data-lucide="shield-check" class="w-3 h-3"></i> Verifiziert
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone Progress Bar -->
+                <div class="bg-black/40 rounded-2xl p-6 border border-emerald-900/40">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-3">
+                        <div>
+                            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Aktueller Haupt-Meilenstein</span>
+                            <h4 class="text-lg font-bold text-white">Meilenstein 1: Regeneratives Dezentral-Netzwerk</h4>
+                        </div>
+                        <span class="text-sm font-extrabold text-emerald-400 bg-emerald-950 px-3 py-1 rounded-full border border-emerald-500/30">68% Erreicht</span>
+                    </div>
+
+                    <div class="w-full bg-slate-900 h-3.5 rounded-full overflow-hidden p-0.5 border border-emerald-900/50 mb-3">
+                        <div class="bg-gradient-to-r from-emerald-600 to-emerald-400 h-full rounded-full transition-all duration-1000 shadow-sm shadow-emerald-500/50" style="width: 68%;"></div>
+                    </div>
+
+                    <div class="flex justify-between text-xs text-gray-400">
+                        <span>Ziel: 500 autarke Lokal-Knotenpunkte</span>
+                        <span>Zieltermin: Q4 2027</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sub-Initiativen / Interactive Roadmap -->
+        <section id="projekte" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div>
+                    <h2 class="text-xs font-bold text-emerald-400 tracking-widest uppercase mb-2">Projekt-Pipeline</h2>
+                    <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Aktuelle Initiativen & Roadmap</h3>
+                    <p class="text-gray-400 text-sm mt-2">Stimme für die vielversprechendsten Ideen ab und helfe, Prioritäten zu setzen.</p>
+                </div>
+
+                <!-- Category Filter Buttons -->
+                <div class="flex flex-wrap gap-2" id="project-filters">
+                    <button class="filter-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-400 text-slate-950 transition-all" data-filter="all">Alle</button>
+                    <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold glass-card text-gray-300 hover:text-white transition-all" data-filter="energie">Energie</button>
+                    <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold glass-card text-gray-300 hover:text-white transition-all" data-filter="agrar">Landwirtschaft</button>
+                    <button class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold glass-card text-gray-300 hover:text-white transition-all" data-filter="bildung">Bildung</button>
+                </div>
+            </div>
+
+            <!-- Project Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="projects-grid">
+                
+                <!-- Project Card 1 -->
+                <div class="project-card glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between" data-category="energie">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-emerald-950 text-emerald-400 text-[11px] font-semibold border border-emerald-800/40">Energie</span>
+                            <span class="text-xs text-gray-400 flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> In Entwicklung</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-2">Solare Energie für Alle</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Open-Source Pläne für erschwingliche, do-it-yourself Balkonkraftwerke mit integriertem lokalem Batteriespeicher.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-emerald-900/30">
+                        <div class="flex items-center gap-2">
+                            <button class="upvote-btn flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 text-emerald-400 border border-emerald-500/30 text-xs font-bold transition-all" data-votes="1420">
+                                <i data-lucide="thumbs-up" class="w-3.5 h-3.5"></i>
+                                <span class="vote-count">1420</span>
+                            </button>
+                        </div>
+                        <span class="text-xs text-gray-400 font-medium">8 Teams aktiv</span>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="project-card glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between" data-category="agrar">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-emerald-950 text-emerald-400 text-[11px] font-semibold border border-emerald-800/40">Landwirtschaft</span>
+                            <span class="text-xs text-gray-400 flex items-center gap-1"><i data-lucide="zap" class="w-3 h-3 text-amber-400"></i> Pilotphase</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-2">Dezentrales Urban Farming</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Vertikale Hydroponik-Systeme für städtische Gemeinschaftsgärten zur regionalen und pestizidfreien Nahrungsmittelversorgung.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-emerald-900/30">
+                        <div class="flex items-center gap-2">
+                            <button class="upvote-btn flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 text-emerald-400 border border-emerald-500/30 text-xs font-bold transition-all" data-votes="980">
+                                <i data-lucide="thumbs-up" class="w-3.5 h-3.5"></i>
+                                <span class="vote-count">980</span>
+                            </button>
+                        </div>
+                        <span class="text-xs text-gray-400 font-medium">15 Hubs aktiv</span>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="project-card glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between" data-category="bildung">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-emerald-950 text-emerald-400 text-[11px] font-semibold border border-emerald-800/40">Bildung</span>
+                            <span class="text-xs text-gray-400 flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3 text-emerald-400"></i> Konzept bereit</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-2">Freie Bildungs-Cloud</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Zensurfreies, frei zugängliches Wissen über Nachhaltigkeit, Handwerk und Technologie für Schulen weltweit.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-emerald-900/30">
+                        <div class="flex items-center gap-2">
+                            <button class="upvote-btn flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 text-emerald-400 border border-emerald-500/30 text-xs font-bold transition-all" data-votes="2150">
+                                <i data-lucide="thumbs-up" class="w-3.5 h-3.5"></i>
+                                <span class="vote-count">2150</span>
+                            </button>
+                        </div>
+                        <span class="text-xs text-gray-400 font-medium">Globaler Rollout</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Action Center / Mitmachen -->
+        <section id="mitmachen" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Info Text -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="inline-flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+                        <i data-lucide="heart-handshake" class="w-4 h-4"></i> Werde Teil des Wandels
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">Deine Fähigkeiten machen den Unterschied.</h2>
+                    <p class="text-gray-300 leading-relaxed text-sm sm:text-base">
+                        Egal ob du Programmierer, Gärtnerin, Wissenschaftlerin, Pädagoge oder einfach nur ein engagierter Mensch bist – Utopia lebt vom Mitmachen.
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start gap-4">
+                            <div class="p-2 rounded-lg bg-emerald-950 border border-emerald-500/30 text-emerald-400 mt-1">
+                                <i data-lucide="code" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm">Tech & Open Source</h4>
+                                <p class="text-gray-400 text-xs">Entwickle Tools, Hardware-Baupläne & Software mit.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="p-2 rounded-lg bg-emerald-950 border border-emerald-500/30 text-emerald-400 mt-1">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm">Lokale Aktionen</h4>
+                                <p class="text-gray-400 text-xs">Gründe oder unterstütze ein Utopia-Hub in deiner Stadt.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="p-2 rounded-lg bg-emerald-950 border border-emerald-500/30 text-emerald-400 mt-1">
+                                <i data-lucide="share-2" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm">Wissen teilen</h4>
+                                <p class="text-gray-400 text-xs">Agiere als Mentor oder erstelle Lerninhalte.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Form Box -->
+                <div class="lg:col-span-7">
+                    <div class="glass-card rounded-3xl p-6 sm:p-8 border-emerald-500/30 relative">
+                        <h3 class="text-2xl font-bold text-white mb-2">Mitgestalten & Verbinden</h3>
+                        <p class="text-xs text-gray-400 mb-6">Fülle das Formular aus, um Teil der Community zu werden und Updates zu erhalten.</p>
+
+                        <form id="participate-form" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="name" class="block text-xs font-medium text-gray-300 mb-1.5">Dein Name / Alias</label>
+                                    <input type="text" id="name" required placeholder="z.B. Alex Vance" class="w-full px-4 py-3 rounded-xl bg-black/50 border border-emerald-900/60 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400 transition-colors text-sm">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-xs font-medium text-gray-300 mb-1.5">E-Mail-Adresse</label>
+                                    <input type="email" id="email" required placeholder="alex@utopia.org" class="w-full px-4 py-3 rounded-xl bg-black/50 border border-emerald-900/60 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400 transition-colors text-sm">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="skills" class="block text-xs font-medium text-gray-300 mb-1.5">Deine Fachbereiche / Interessen</label>
+                                <select id="skills" class="w-full px-4 py-3 rounded-xl bg-black/50 border border-emerald-900/60 text-white focus:outline-none focus:border-emerald-400 transition-colors text-sm">
+                                    <option value="tech">Software & Hardware Entwicklung</option>
+                                    <option value="ecology">Ökologie & Permakultur</option>
+                                    <option value="community">Community Management & Events</option>
+                                    <option value="education">Bildung & Content Creation</option>
+                                    <option value="general">Allgemeine Unterstützung</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-xs font-medium text-gray-300 mb-1.5">Wie möchtest du dich einbringen? (Optional)</label>
+                                <textarea id="message" rows="3" placeholder="Erzähle uns kurz von deinen Ideen oder Erfahrungen..." class="w-full px-4 py-3 rounded-xl bg-black/50 border border-emerald-900/60 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400 transition-colors text-sm resize-none"></textarea>
+                            </div>
+
+                            <div class="flex items-center gap-2 pt-2">
+                                <input type="checkbox" id="newsletter" checked class="rounded bg-black border-emerald-900 text-emerald-500 focus:ring-emerald-400 h-4 w-4">
+                                <label for="newsletter" class="text-xs text-gray-400">Regelmäßige Utopia-Updates & Projektberichte erhalten</label>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-bold text-sm shadow-lg shadow-emerald-500/20 transition-all hover:shadow-emerald-500/35 flex items-center justify-center gap-2 mt-4">
+                                <i data-lucide="send" class="w-4 h-4"></i> Teil der Bewegung werden
+                            </button>
+                        </form>
+
+                        <!-- Success Message Box (Hidden initially) -->
+                        <div id="form-success" class="hidden absolute inset-0 glass-card bg-slate-950/95 rounded-3xl p-8 flex flex-col items-center justify-center text-center space-y-4 border-emerald-500/50">
+                            <div class="w-16 h-16 rounded-full bg-emerald-950 border border-emerald-400 flex items-center justify-center text-emerald-400 mb-2">
+                                <i data-lucide="check" class="w-8 h-8"></i>
+                            </div>
+                            <h4 class="text-2xl font-extrabold text-white">Willkommen an Board!</h4>
+                            <p class="text-sm text-gray-300 max-w-md">Vielen Dank für deine Bereitschaft, die Welt mitzugestalten. Wir haben dir eine Bestätigungs-E-Mail gesendet.</p>
+                            <button id="reset-form-btn" class="px-6 py-2.5 rounded-xl bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-xs font-bold hover:bg-emerald-900 transition-all">
+                                Weitere Nachricht senden
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
     </main>
 
-    <footer>
-        &copy; 2026 Low Budget Entertainment. Alle Rechte vorbehalten.
+    <!-- Footer -->
+    <footer class="glass-card border-t border-emerald-900/30 py-12 px-4 sm:px-6 lg:px-8 mt-20 relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+            
+            <div class="text-center md:text-left space-y-2">
+                <div class="flex items-center justify-center md:justify-start gap-2">
+                    <i data-lucide="globe" class="w-5 h-5 text-emerald-400"></i>
+                    <span class="font-extrabold text-white tracking-wider">UTOPIA-PROJEKT.DE</span>
+                </div>
+                <p class="text-xs text-gray-400 italic">"Die Zukunft gehört denen, die sie heute gestalten."</p>
+            </div>
+
+            <!-- Social Links -->
+            <div class="flex items-center gap-6 text-gray-400">
+                <a href="#" class="hover:text-emerald-400 transition-colors" aria-label="GitHub"><i data-lucide="github" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-emerald-400 transition-colors" aria-label="Twitter"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-emerald-400 transition-colors" aria-label="Discord"><i data-lucide="message-square" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-emerald-400 transition-colors" aria-label="RSS Feed"><i data-lucide="rss" class="w-5 h-5"></i></a>
+            </div>
+
+            <!-- Legal / Copyright -->
+            <div class="text-xs text-gray-500 text-center md:text-right space-y-1">
+                <p>© 2026 Utopia-Projekt Initiative. Open-Source Commons.</p>
+                <div class="flex justify-center md:justify-end gap-4 text-gray-400">
+                    <a href="#" class="hover:underline">Datenschutz</a>
+                    <a href="#" class="hover:underline">Impressum</a>
+                    <a href="#" class="hover:underline">Manifest</a>
+                </div>
+            </div>
+
+        </div>
     </footer>
 
+    <!-- JavaScript Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide Icons
+            lucide.createIcons();
+
+            // Mobile Menu Toggle
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('flex');
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                });
+            });
+
+            // Dynamic Counter Animation
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+
+            const startCounters = () => {
+                counters.forEach(counter => {
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText.replace(/\./g, '');
+                        const inc = target / speed;
+
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc).toLocaleString('de-DE');
+                            setTimeout(updateCount, 15);
+                        } else {
+                            counter.innerText = target.toLocaleString('de-DE');
+                        }
+                    };
+                    updateCount();
+                });
+            };
+
+            // Trigger Counter on Scroll Intersection
+            let observerTriggered = false;
+            const impactSection = document.getElementById('impact');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !observerTriggered) {
+                        startCounters();
+                        observerTriggered = true;
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            if (impactSection) observer.observe(impactSection);
+
+            // Upvote Button Counter Logic
+            const upvoteBtns = document.querySelectorAll('.upvote-btn');
+            upvoteBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (!this.classList.contains('voted')) {
+                        let countSpan = this.querySelector('.vote-count');
+                        let currentVotes = parseInt(this.getAttribute('data-votes'));
+                        currentVotes += 1;
+                        this.setAttribute('data-votes', currentVotes);
+                        countSpan.textContent = currentVotes;
+                        
+                        this.classList.add('voted', 'bg-emerald-500', 'text-slate-950');
+                        this.classList.remove('bg-emerald-950/80', 'text-emerald-400');
+                        
+                        // Icon scale effect
+                        const icon = this.querySelector('svg');
+                        if (icon) icon.style.transform = 'scale(1.3)';
+                        setTimeout(() => { if (icon) icon.style.transform = 'scale(1)'; }, 200);
+                    }
+                });
+            });
+
+            // Project Filtering
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-emerald-400', 'text-slate-950');
+                        b.classList.add('glass-card', 'text-gray-300');
+                    });
+
+                    btn.classList.add('active', 'bg-emerald-400', 'text-slate-950');
+                    btn.classList.remove('glass-card', 'text-gray-300');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    projectCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Form Submit Logic
+            const form = document.getElementById('participate-form');
+            const successBox = document.getElementById('form-success');
+            const resetBtn = document.getElementById('reset-form-btn');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Simulate Form Submission
+                successBox.classList.remove('hidden');
+            });
+
+            resetBtn.addEventListener('click', () => {
+                form.reset();
+                successBox.classList.add('hidden');
+            });
+
+            // Manual Refresh Metric Button
+            const refreshBtn = document.getElementById('refresh-metrics-btn');
+            refreshBtn.addEventListener('click', () => {
+                refreshBtn.classList.add('animate-spin');
+                startCounters();
+                setTimeout(() => {
+                    refreshBtn.classList.remove('animate-spin');
+                }, 1000);
+            });
+        });
+    </script>
 </body>
 </html>
